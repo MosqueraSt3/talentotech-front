@@ -37,7 +37,7 @@ export const createReservation = async (reservation: {
 };
 
 export const updateReservation = async (
-  id: string,
+  id: number,
   reservation: {
     customerName: string;
     roomNumber: number;

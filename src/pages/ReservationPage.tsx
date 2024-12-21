@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Column, useTable } from "react-table";
-import { fetchReservations, createReservation } from "../services/api";
+import {
+  fetchReservations,
+  createReservation,
+  updateReservation,
+} from "../services/api";
 import Header from "../components/organisms/Header";
 
 const ReservationsPage: React.FC = () => {
@@ -59,15 +63,15 @@ const ReservationsPage: React.FC = () => {
     });
   };
 
-  const handleUpdate = (e: React.FormEvent) => {
+  const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
-    setReservations((prevReservations) =>
-      prevReservations.map((reservation) =>
-        reservation.id === editingReservation?.id
-          ? { ...reservation, ...newReservation }
-          : reservation
-      )
-    );
+    const updated = await updateReservation(newReservation.id, {
+      customerName: newReservation.customerName,
+      roomNumber: newReservation.roomNumber,
+      checkInDate: newReservation.checkInDate,
+      checkOutDate: newReservation.checkOutDate,
+    });
+    setReservations([...reservations, updated]);
     setEditingReservation(null);
     setNewReservation({
       id: 0,
