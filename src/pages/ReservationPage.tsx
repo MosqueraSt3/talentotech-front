@@ -4,6 +4,7 @@ import {
   fetchReservations,
   createReservation,
   updateReservation,
+  deleteReservation,
 } from "../services/api";
 import Header from "../components/organisms/Header";
 
@@ -93,6 +94,19 @@ const ReservationsPage: React.FC = () => {
     });
   };
 
+  const handleDeleteClick = async (reservation: IReservation) => {
+    const confirmDelete = window.confirm(
+      `¿Estás seguro de eliminar la reserva #${reservation.id}?`
+    );
+
+    if (confirmDelete) {
+      await deleteReservation(reservation.id.toString());
+      setReservations((prevReservations) =>
+        prevReservations.filter((r) => r.id !== reservation.id)
+      );
+    }
+  };
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const options: Intl.DateTimeFormatOptions = {
@@ -112,10 +126,10 @@ const ReservationsPage: React.FC = () => {
   const columns: Column<IReservation>[] = React.useMemo(
     () => [
       { Header: "ID", accessor: "id" },
-      { Header: "Customer Name", accessor: "customerName" },
-      { Header: "Room Number", accessor: "roomNumber" },
-      { Header: "Check-In Date", accessor: "checkInDate" },
-      { Header: "Check-Out Date", accessor: "checkOutDate" },
+      { Header: "Cliente", accessor: "customerName" },
+      { Header: "Habitacion", accessor: "roomNumber" },
+      { Header: "Check In", accessor: "checkInDate" },
+      { Header: "Check Out", accessor: "checkOutDate" },
     ],
     []
   );
@@ -211,6 +225,12 @@ const ReservationsPage: React.FC = () => {
                       onClick={() => handleEditClick(row.original)}
                     >
                       Editar
+                    </button>
+                    <button
+                      className="btn btn-danger ms-2"
+                      onClick={() => handleDeleteClick(row.original)}
+                    >
+                      Eliminar
                     </button>
                   </td>
                 </tr>
