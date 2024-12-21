@@ -7,19 +7,21 @@ const ReservationsPage: React.FC = () => {
   interface IReservation {
     id: number;
     customerName: string;
-    roomNumber: string;
+    roomNumber: number;
     checkInDate: string;
     checkOutDate: string;
   }
 
   const [reservations, setReservations] = useState<IReservation[]>([]);
-  const [newReservation, setNewReservation] = useState({
+  const [newReservation, setNewReservation] = useState<IReservation>({
     id: 0,
     customerName: "",
     roomNumber: 0,
     checkInDate: "",
     checkOutDate: "",
   });
+  const [editingReservation, setEditingReservation] =
+    useState<IReservation | null>(null);
 
   useEffect(() => {
     fetchReservations().then(setReservations);
@@ -37,6 +39,36 @@ const ReservationsPage: React.FC = () => {
     e.preventDefault();
     const created = await createReservation(newReservation);
     setReservations([...reservations, created]);
+    setNewReservation({
+      id: 0,
+      customerName: "",
+      roomNumber: 0,
+      checkInDate: "",
+      checkOutDate: "",
+    });
+  };
+
+  const handleEditClick = (reservation: IReservation) => {
+    setEditingReservation(reservation);
+    setNewReservation({
+      id: reservation.id,
+      customerName: reservation.customerName,
+      roomNumber: reservation.roomNumber,
+      checkInDate: reservation.checkInDate,
+      checkOutDate: reservation.checkOutDate,
+    });
+  };
+
+  const handleUpdate = (e: React.FormEvent) => {
+    e.preventDefault();
+    setReservations((prevReservations) =>
+      prevReservations.map((reservation) =>
+        reservation.id === editingReservation?.id
+          ? { ...reservation, ...newReservation }
+          : reservation
+      )
+    );
+    setEditingReservation(null);
     setNewReservation({
       id: 0,
       customerName: "",
@@ -88,7 +120,10 @@ const ReservationsPage: React.FC = () => {
       <div className="container py-5">
         <h1 className="mb-4">Reservaciones</h1>
 
-        <form onSubmit={handleCreate} className="mb-4">
+        <form
+          onSubmit={editingReservation ? handleUpdate : handleCreate}
+          className="mb-4"
+        >
           <input
             type="number"
             name="id"
@@ -128,7 +163,7 @@ const ReservationsPage: React.FC = () => {
             className="form-control mb-2"
           />
           <button type="submit" className="btn btn-primary">
-            Agregar reserva
+            {editingReservation ? "Actualizar reserva" : "Agregar reserva"}
           </button>
         </form>
 
@@ -157,6 +192,14 @@ const ReservationsPage: React.FC = () => {
                       {cell.render("Cell")}
                     </td>
                   ))}
+                  <td>
+                    <button
+                      className="btn btn-secondary"
+                      onClick={() => handleEditClick(row.original)}
+                    >
+                      Editar
+                    </button>
+                  </td>
                 </tr>
               );
             })}
