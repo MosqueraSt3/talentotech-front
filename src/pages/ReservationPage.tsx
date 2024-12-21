@@ -53,13 +53,18 @@ const ReservationsPage: React.FC = () => {
   };
 
   const handleEditClick = (reservation: IReservation) => {
+    const formatDateForInput = (dateString: string) => {
+      const date = new Date(dateString);
+      return isNaN(date.getTime()) ? "" : date.toISOString().split("T")[0];
+    };
+
     setEditingReservation(reservation);
     setNewReservation({
       id: reservation.id,
       customerName: reservation.customerName,
       roomNumber: reservation.roomNumber,
-      checkInDate: reservation.checkInDate,
-      checkOutDate: reservation.checkOutDate,
+      checkInDate: formatDateForInput(reservation.checkInDate),
+      checkOutDate: formatDateForInput(reservation.checkOutDate),
     });
   };
 
@@ -83,15 +88,13 @@ const ReservationsPage: React.FC = () => {
   };
 
   const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
     const options: Intl.DateTimeFormatOptions = {
       year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-      second: "numeric",
+      month: "2-digit",
+      day: "2-digit",
     };
-    return new Date(dateString).toLocaleString(undefined, options);
+    return date.toLocaleDateString("en-CA", options);
   };
 
   const formattedReservations = reservations.map((reservation) => ({
