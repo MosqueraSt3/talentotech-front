@@ -1,50 +1,108 @@
-# React + TypeScript + Vite
+# Talento Tech
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto es una aplicación web que permite la gestión de reservas de hotel. Está diseñado con un enfoque de arquitectura **Atomic Design** para asegurar una experiencia escalable y mantenible. El proyecto utiliza tecnologías modernas y está creado con **Vite** para un entorno de desarrollo rápido y eficiente.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tabla de Contenido
 
-## Expanding the ESLint configuration
+- [Acerca del Proyecto](#acerca-del-proyecto)
+- [Instalación](#instalación)
+- [Arquitectura](#arquitectura)
+- [Dependencias y Paquetes Importantes](#dependencias-y-paquetes-importantes)
+- [Estructura del Proyecto](#estructura-del-proyecto)
+- [Scripts de Desarrollo](#scripts-de-desarrollo)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+---
 
-- Configure the top-level `parserOptions` property like this:
+## Acerca del Proyecto
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+El **Hotel Reservation System** permite a los usuarios gestionar la creación, lectura, actualización y eliminación (CRUD) de reservas en hoteles. La aplicación está diseñada para ser amigable con el usuario y con un flujo de navegación intuitivo, ideal tanto para usuarios como administradores.
+
+Características principales:
+
+- Registro de usuarios.
+- Gestión de reservas (CRUD).
+- Visualización y filtrado de reservas.
+- Interfaz amigable y responsive.
+
+El sistema es útil tanto para huéspedes que desean realizar o consultar sus reservas como para administradores que necesitan gestionar disponibilidad y confirmaciones.
+
+---
+
+## Instalación
+
+1. **Clona el repositorio:**
+
+   ```bash
+   git clone https://github.com/tu-username/hotel-reservation-system.git
+   cd hotel-reservation-system
+   ```
+
+2. **Instala las dependencias:**
+
+   ```bash
+   npm install
+   ```
+
+3. **Configura las variables de entorno**
+
+4. **Inicia el servidor de desarrollo:**
+
+   ```bash
+   npm run dev
+   ```
+
+   Esto abrirá la aplicación en tu navegador en `http://localhost:3000/`.
+
+---
+
+## Arquitectura
+
+Este proyecto sigue el enfoque de **Atomic Design** para mantener la separación de componentes y promover el desarrollo escalable y mantenible.
+
+- **Atoms**: Los componentes más básicos, como botones, inputs, etc.
+- **Molecules**: Combinación de varios `atoms` para crear componentes más complejos como formularios o listas.
+- **Organisms**: Composiciones más grandes que agrupan moléculas para formular secciones completas como el formulario de registro o la lista de reservas.
+- **Templates**: Páginas compuestas por organismos y molecules, como la página de inicio o la página de administración.
+
+---
+
+## Dependencias y Paquetes Importantes
+
+1. **Vite**: Herramienta de construcción ligera y moderna.
+2. **React**: Biblioteca para el desarrollo de interfaces de usuario.
+3. **Bootstrap**: Framework CSS para diseño responsivo y componentes reutilizables.
+4. **Date-fns**: Utilizado para la manipulación de fechas en el sistema.
+5. **Axios**: Para manejar peticiones HTTP.
+6. **React Router**: Para la gestión de rutas y navegación en la aplicación.
+
+---
+
+## Estructura del Proyecto
+
+```
+/src
+  /assets         # Recursos estáticos (imágenes, etc.)
+  /components     # Componentes Atómicos, Moleculares y Orgánicos
+    /atoms
+    /molecules
+    /organisms
+    /templates
+  /services       # Lógica de servicios y API (axios requests)
+  /pages          # Páginas principales de la aplicación
+  /utils          # Utilidades y funciones genéricas
+  App.jsx         # Punto de entrada del proyecto
+  main.jsx        # Configuración de Vite y entrada
+  index.html      # Archivo HTML principal
+  index.css       # Estilo global de la aplicación
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+---
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Scripts de Desarrollo
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- **`npm run dev`**: Inicia el servidor de desarrollo y compila los archivos en tiempo real.
+- **`npm run build`**: Compila el proyecto para producción.
+- **`npm run preview`**: Abre la aplicación desplegada en un entorno de producción.
+- **`npm test`**: Ejecuta las pruebas del proyecto.
