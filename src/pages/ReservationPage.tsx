@@ -76,7 +76,13 @@ const ReservationsPage: React.FC = () => {
       checkInDate: newReservation.checkInDate,
       checkOutDate: newReservation.checkOutDate,
     });
-    setReservations([...reservations, updated]);
+
+    setReservations((prevReservations) =>
+      prevReservations.map((reservation) =>
+        reservation.id === updated.id ? updated : reservation
+      )
+    );
+
     setEditingReservation(null);
     setNewReservation({
       id: 0,
