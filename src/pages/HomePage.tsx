@@ -1,14 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import Button from "../components/atoms/Button";
+import Header from "../components/organisms/Header";
+import Countdown from "../components/organisms/Countdown";
+import HeroSection from "../components/organisms/HeroSection";
 
 const HomePage: React.FC = () => {
   return (
-    <div>
-      <h1>Bienvenido a la Gestión de Reservas Hoteleras</h1>
-      <Link to="/reservations">
-        <Button text="Gestionar Reservas" />
-      </Link>
+    <div className="min-vh-100 bg-light">
+      <Header />
+      <HeroSection />
+      <Countdown />
     </div>
   );
 };
