@@ -17,7 +17,7 @@ Este proyecto es una aplicación web que permite la gestión de reservas de hote
 
 ## Acerca del Proyecto
 
-El **Hotel Reservation System** permite a los usuarios gestionar la creación, lectura, actualización y eliminación (CRUD) de reservas en hoteles. La aplicación está diseñada para ser amigable con el usuario y con un flujo de navegación intuitivo, ideal tanto para usuarios como administradores.
+El **proyecto** permite a los usuarios gestionar la creación, lectura, actualización y eliminación (CRUD) de reservas en hoteles. La aplicación está diseñada para ser amigable con el usuario y con un flujo de navegación intuitivo, ideal tanto para usuarios como administradores.
 
 Características principales:
 
@@ -64,7 +64,7 @@ Este proyecto sigue el enfoque de **Atomic Design** para mantener la separación
 - **Atoms**: Los componentes más básicos, como botones, inputs, etc.
 - **Molecules**: Combinación de varios `atoms` para crear componentes más complejos como formularios o listas.
 - **Organisms**: Composiciones más grandes que agrupan moléculas para formular secciones completas como el formulario de registro o la lista de reservas.
-- **Templates**: Páginas compuestas por organismos y molecules, como la página de inicio o la página de administración.
+- **pages**: Páginas compuestas por organismos y molecules, como la página de inicio o la página de administración.
 
 ---
 
